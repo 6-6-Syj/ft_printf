@@ -13,24 +13,24 @@
 #include "printf.h"
 #include <stdarg.h>
 
-ft_printf_args(args, format)
+int ft_printf_args(va_list args, const char * format, size_t i)
 {
 	if (format[i] == 'c')
-		va_arg(args, int);
+		return (ft_putchar(va_arg(args, int), 1));
 	else if (format[i] == 's')
-		va_arg(args, char);
-	else if (format[i] == 'p')
-		va_arg(args, char);
-	else if (format[i] == 'd')
-		va_arg(args, char);
+		return (ft_putstr(va_arg(args, int), 1));
 	else if (format[i] == 'i')
-		ft_putnbr(va_arg(args, int));
+		return (ft_putnbr(va_arg(args, int), 1));
+	else if (format[i] == 'd')
+		return (ft_putnbr_base(va_arg(args, int), "0123456789"));
+	else if (format[i] == 'p')
+		return ((va_arg(args, int), "0123456789ABCDEF"));
 	else if (format[i] == 'x')
-		va_arg(args, char);
+		return ((va_arg(args, int), "0123456789ABCDEF"));
 	else if (format[i] == 'X')
-		va_arg(args, char);
+		return ((va_arg(args, int), "0123456789ABCDEF"));
 	else if (format[i] == '%')
-		va_arg(args, char);
+		return ((va_arg(args, int), 1));
 }
 
 int	ft_printf(const char *format, ...)
@@ -48,10 +48,10 @@ int	ft_printf(const char *format, ...)
 		while (format[i] != '%')
 		{
 			count++;
-			ft_putchar(format[i]);
+			ft_putchar(format[i], 1);
 			i++;
 		}
-		count += ft_printf_args(args, format);
+		count += ft_printf_args(args, format, i);
 		count++;
 		i++;
 	}

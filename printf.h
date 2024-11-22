@@ -15,9 +15,9 @@
 # include <stddef.h>
 
 int	ft_printf(const char *format, ...);
-int	ft_strlen(const char *s);
-int	ft_putchar(const char c);
-int	ft_putstr(const char *str);
-int	ft_putnbr(int n);
+int	ft_strlen(char *s);
+int	ft_putchar(char c, int fd);
+int	ft_putstr(char *str, int fd);
+int	ft_putnbr(int n, int fd);
 
 #endif

@@ -32,25 +32,25 @@ static int	int_len(long nb)
 	return (count);
 }
 
-int	ft_putnbr(int n)
+int	ft_putnbr(int n, int fd)
 {
 	if (n == -2147483648)
 	{
-		write(1, "-2147483648", 11);
+		write(fd, "-2147483648", 11);
 		return;
 	}
 	if (n < 0)
 	{
 		n *= -1;
-		ft_putchar('-');
+		ft_putchar('-', 1);
 	}
 	if (n > 9)
 	{
-		ft_putnbr(n / 10);
-		ft_putchar(n % 10 + 48);
+		ft_putnbr(n / 10, 1);
+		ft_putchar(n % 10 + 48, 1);
 	}
 	else if (n < 10)
-		ft_putchar(n + 48);
+		ft_putchar(n + 48, 1);
 	return (int_len(n));
 }
 
