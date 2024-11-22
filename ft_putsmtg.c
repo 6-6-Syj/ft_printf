@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "ft_printf.h"
 #include <unistd.h>
 
 int	ft_strlen(char *s)
@@ -31,7 +31,16 @@ int	ft_putchar(char c, int fd)
 
 int	ft_putstr(char *str, int fd)
 {
+	if (str == NULL)
+	{
+		write(fd, "(null)", 6);
+		return (6);
+	}
 	write(fd, str, ft_strlen(str));
 	return (ft_strlen(str));
 }
 
+int	ft_ptr(char *str)
+{
+
+}

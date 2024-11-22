@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "ft_printf.h"
 #include <unistd.h>
 
 static int	int_len(long nb)
@@ -35,15 +35,20 @@ static int	int_len(long nb)
 
 int	ft_putnbr(int n, int fd)
 {
+	int	count;
+
+	count = 0;
 	if (n == -2147483648)
 	{
-		write(fd, "-2147483648", 11);
-		// return;
+		write(fd, "-", 1);
+		write(fd, "21", 2);
+		write(fd, "47483648", 8);
+		return (11);
 	}
 	if (n < 0)
 	{
 		n *= -1;
-		ft_putchar('-', 1);
+		count = ft_putchar('-', 1);
 	}
 	if (n > 9)
 	{
@@ -52,7 +57,8 @@ int	ft_putnbr(int n, int fd)
 	}
 	else if (n < 10)
 		ft_putchar(n + 48, 1);
-	return (int_len(n));
+
+	return (int_len(n) + count);
 }
 
 static int	base_len(char *base)
@@ -65,7 +71,7 @@ static int	base_len(char *base)
 	return (i);
 }
 
-void	ft_putnbr_base(int nbr, char *base)
+int	ft_putnbr_base(int nbr, char *base)
 {
 	long	nb;
 
@@ -78,6 +84,7 @@ void	ft_putnbr_base(int nbr, char *base)
     if (nb >= base_len(base))
 		ft_putnbr_base(nb / base_len(base), base);
 	write(1, &base[nb % base_len(base)], 1);
+	return (0);
 	// return (int_len());
 	//  a reflechir avec base
 }

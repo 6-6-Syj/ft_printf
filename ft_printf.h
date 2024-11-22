@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf.h                                            :+:      :+:    :+:  */
+/*   ft_printf.h                                         :+:      :+:    :+:  */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmagand <jmagand@student.42.fr>            #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINTF_H
-# define PRINTF_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 # include <stddef.h>
 
 int	ft_printf(const char *format, ...);
@@ -19,5 +19,6 @@ int	ft_strlen(char *s);
 int	ft_putchar(char c, int fd);
 int	ft_putstr(char *str, int fd);
 int	ft_putnbr(int n, int fd);
+int	ft_putnbr_base(int nbr, char *base);
 
 #endif

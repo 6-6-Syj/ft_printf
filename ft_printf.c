@@ -10,21 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "ft_printf.h"
 #include <stdarg.h>
 
 static int ft_printf_args(va_list args, const char * format, size_t i)
 {
 	if (format[i] == 'c')
 		return (ft_putchar(va_arg(args, int), 1));
-	// else if (format[i] == 's')
-	// 	return (ft_putstr(va_arg(args, int), 1));
-	else if (format[i] == 'i')
+	else if (format[i] == 's')
+		return (ft_putstr(va_arg(args, char *), 1));
+	else if (format[i] == 'i' || format[i] == 'd')
 		return (ft_putnbr(va_arg(args, int), 1));
-	// else if (format[i] == 'd')
-	// 	return (ft_putnbr_base(va_arg(args, int), "0123456789"));
-	// else if (format[i] == 'p')
-	// 	return ((va_arg(args, int), "0123456789ABCDEF"));
+	else if (format[i] == 'p')
+		return (ft_ptr(va_arg(args, void *), "0123456789ABCDEF"));
 	// else if (format[i] == 'x')
 	// 	return ((va_arg(args, int), "0123456789ABCDEF"));
 	// else if (format[i] == 'X')
@@ -37,8 +35,8 @@ static int ft_printf_args(va_list args, const char * format, size_t i)
 int	ft_printf(const char *format, ...)
 {
 	va_list args;
-	size_t	i;
-	size_t	count;
+	int	i;
+	int	count;
 
 	if (!format)
 		return (-1);
@@ -47,14 +45,13 @@ int	ft_printf(const char *format, ...)
 	count = 0;
 	while (format[i])
 	{
-		while (format[i] != '%')
+		if (format[i] == '%')
 		{
-			count++;
-			ft_putchar(format[i], 1);
+			count += ft_printf_args(args, format, (i + 1));
 			i++;
 		}
-		count += ft_printf_args(args, format, i);
-		count++;
+		else
+			count += ft_putchar(format[i], 1);
 		i++;
 	}
 	va_end (args);
@@ -62,12 +59,12 @@ int	ft_printf(const char *format, ...)
 }
 
 
-int	main()
-{
-#include <stdio.h>
+// int	main()
+// {
+// 	#include <stdio.h>
 
-	int i = 50;
-	printf("Mon printf = %i", ft_printf("C'quoi les bails : %i\n" , i));
-	printf("Vrai printf = %i", printf("C'quoi les bails : %i\n" , i));
-	return (0);
-}
+// 	printf("Mon printf = %i\n", ft_printf("C'quoi les bails : %i\n" , i));
+// 	ft_printf("%s", NULL);
+// 	printf("%s", NULL);
+// 	return (0);
+// }

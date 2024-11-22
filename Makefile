@@ -1,13 +1,15 @@
 NAME = libftprintf.a
 
-SRCS =
+SRCS =	ft_idk.c		\
+		ft_putsmtg.c	\
+		ft_printf.c		\
 
 OBJS = $(SRCS:.c=.o)
 
 CC = cc
 FLAGS = -Wall -Werror -Wextra
 RM = rm -f
-HEADER = printf.h
+HEADER = ft_printf.h
 AR = ar
 ARFLAGS = -r -c -s
 
