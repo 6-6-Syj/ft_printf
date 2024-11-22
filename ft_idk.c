@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "printf.h"
+#include <unistd.h>
 
 static int	int_len(long nb)
 {
@@ -37,7 +38,7 @@ int	ft_putnbr(int n, int fd)
 	if (n == -2147483648)
 	{
 		write(fd, "-2147483648", 11);
-		return;
+		// return;
 	}
 	if (n < 0)
 	{
@@ -52,6 +53,16 @@ int	ft_putnbr(int n, int fd)
 	else if (n < 10)
 		ft_putchar(n + 48, 1);
 	return (int_len(n));
+}
+
+static int	base_len(char *base)
+{
+	int	i;
+
+	i = 0;
+	while (base[i] != '\0')
+		i++;
+	return (i);
 }
 
 void	ft_putnbr_base(int nbr, char *base)
