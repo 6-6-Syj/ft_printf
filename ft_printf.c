@@ -11,9 +11,8 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdarg.h>
 
-static int ft_printf_args(va_list args, const char * format, size_t i)
+static int	ft_printf_args(va_list args, const char *format, size_t i)
 {
 	if (format[i] == 'c')
 		return (ft_putchar(va_arg(args, int), 1));
@@ -21,22 +20,27 @@ static int ft_printf_args(va_list args, const char * format, size_t i)
 		return (ft_putstr(va_arg(args, char *), 1));
 	else if (format[i] == 'i' || format[i] == 'd')
 		return (ft_putnbr(va_arg(args, int), 1));
+	else if (format[i] == 'u')
+		return (ft_putnbr_u(va_arg(args, unsigned int), 1));
 	else if (format[i] == 'p')
-		return (ft_ptr(va_arg(args, void *), "0123456789ABCDEF"));
-	// else if (format[i] == 'x')
-	// 	return ((va_arg(args, int), "0123456789ABCDEF"));
-	// else if (format[i] == 'X')
-	// 	return ((va_arg(args, int), "0123456789ABCDEF"));
-	// else if (format[i] == '%')
-	// 	return ((va_arg(args, int), 1));
+		return (ft_putadress(va_arg(args, unsigned long long),
+				"0123456789abcdef"));
+	else if (format[i] == 'x')
+		return (ft_putnbr_hex(va_arg(args, unsigned int),
+				"0123456789abcdef"));
+	else if (format[i] == 'X')
+		return (ft_putnbr_hex(va_arg(args, unsigned int),
+				"0123456789ABCDEF"));
+	else if (format[i] == '%')
+		return (ft_putchar('%', 1));
 	return (0);
 }
 
 int	ft_printf(const char *format, ...)
 {
-	va_list args;
-	int	i;
-	int	count;
+	va_list	args;
+	int		i;
+	int		count;
 
 	if (!format)
 		return (-1);
@@ -58,13 +62,12 @@ int	ft_printf(const char *format, ...)
 	return (count);
 }
 
-
 // int	main()
 // {
 // 	#include <stdio.h>
 
-// 	printf("Mon printf = %i\n", ft_printf("C'quoi les bails : %i\n" , i));
-// 	ft_printf("%s", NULL);
-// 	printf("%s", NULL);
+// 	char *str = -1;
+// 	printf("True = %i\n\n", printf("\nC'quoi les bails : %p\n", str));
+// 	printf("FT = %i\n", ft_printf(" C'quoi les bails : %p\n", str));
 // 	return (0);
 // }

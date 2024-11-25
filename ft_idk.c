@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <unistd.h>
 
 static int	int_len(long nb)
 {
@@ -51,17 +50,23 @@ int	ft_putnbr(int n, int fd)
 		count = ft_putchar('-', 1);
 	}
 	if (n > 9)
-	{
 		ft_putnbr(n / 10, 1);
-		ft_putchar(n % 10 + 48, 1);
-	}
-	else if (n < 10)
-		ft_putchar(n + 48, 1);
-
+	ft_putchar(n % 10 + 48, 1);
 	return (int_len(n) + count);
 }
 
-static int	base_len(char *base)
+int	ft_putnbr_u(unsigned int n, int fd)
+{
+	int	count;
+
+	count = 0;
+	if (n > 9)
+		ft_putnbr(n / 10, 1);
+	ft_putchar(n % 10 + 48, 1);
+	return (int_len(n) + count);
+}
+
+int	base_len(char *base)
 {
 	int	i;
 
@@ -71,21 +76,13 @@ static int	base_len(char *base)
 	return (i);
 }
 
-int	ft_putnbr_base(int nbr, char *base)
+int	ft_putnbr_base_ul(unsigned long long nbr, char *base)
 {
-	long	nb;
+	int	count;
 
-	nb = nbr;
-    if (nb < 0)
-    {
-        nb = nb * -1;
-        write(1, "-", 1);
-    }
-    if (nb >= base_len(base))
-		ft_putnbr_base(nb / base_len(base), base);
-	write(1, &base[nb % base_len(base)], 1);
-	return (0);
-	// return (int_len());
-	//  a reflechir avec base
+	count = 0;
+	if (nbr >= base_len(base))
+		count += ft_putnbr_base_ul(nbr / base_len(base), base);
+	count += write(1, &base[nbr % base_len(base)], 1);
+	return (count);
 }
-
