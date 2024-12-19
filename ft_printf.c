@@ -21,9 +21,9 @@ static int	ft_printf_args(va_list args, const char *format, size_t i)
 	else if (format[i] == 'i' || format[i] == 'd')
 		return (ft_putnbr(va_arg(args, int), 1));
 	else if (format[i] == 'u')
-		return (ft_putnbr_u(va_arg(args, unsigned int), 1));
+		return (ft_putnbr_u(va_arg(args, unsigned int)));
 	else if (format[i] == 'p')
-		return (ft_putadress(va_arg(args, unsigned long long),
+		return (ft_putadress(va_arg(args, void *),
 				"0123456789abcdef"));
 	else if (format[i] == 'x')
 		return (ft_putnbr_hex(va_arg(args, unsigned int),
@@ -66,8 +66,9 @@ int	ft_printf(const char *format, ...)
 // {
 // 	#include <stdio.h>
 
-// 	char *str = -1;
+// 	char *str;
+// 	str = NULL;
 // 	printf("True = %i\n\n", printf("\nC'quoi les bails : %p\n", str));
-// 	printf("FT = %i\n", ft_printf(" C'quoi les bails : %p\n", str));
+// 	ft_printf("FT = %i\n", ft_printf("\nC'quoi les bails : %p\n", str));
 // 	return (0);
 // }

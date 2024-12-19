@@ -44,20 +44,22 @@ int	ft_putnbr_hex(unsigned int nbr, char *base)
 	int	count;
 
 	count = 0;
-	if (nbr >= base_len(base))
+	if (nbr >= (unsigned int) base_len(base))
 		count += ft_putnbr_hex(nbr / base_len(base), base);
 	count += write(1, &base[nbr % base_len(base)], 1);
 	return (count);
 }
 
-int	ft_putadress(unsigned long long nbr, char *base)
+int	ft_putadress(void *nbr, char *base)
 {
-	int	count;
+	int					count;
+	unsigned long long	res;
 
 	count = 0;
-	if (!nbr)
+	res = (unsigned long long) nbr;
+	if (nbr == 0)
 		return (ft_putstr("(nil)", 1));
 	count += ft_putstr("0x", 1);
-	count += ft_putnbr_base_ul(nbr, base);
+	count += ft_putnbr_base_ul(res, base);
 	return (count);
 }

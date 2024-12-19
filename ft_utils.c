@@ -55,7 +55,7 @@ int	ft_putnbr(int n, int fd)
 	return (int_len(n) + count);
 }
 
-int	ft_putnbr_u(unsigned int n, int fd)
+int	ft_putnbr_u(unsigned int n)
 {
 	int	count;
 
@@ -81,7 +81,7 @@ int	ft_putnbr_base_ul(unsigned long long nbr, char *base)
 	int	count;
 
 	count = 0;
-	if (nbr >= base_len(base))
+	if (nbr >= (unsigned long long) base_len(base))
 		count += ft_putnbr_base_ul(nbr / base_len(base), base);
 	count += write(1, &base[nbr % base_len(base)], 1);
 	return (count);
